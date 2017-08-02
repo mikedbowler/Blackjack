@@ -6,6 +6,7 @@ public class Dealer extends Player{
 		
 		//Must call superclass constructor first.
 		super(name,deck);
+		isDealer = true;
 	}
 	
 	//The dealer will act according to a fixed algorithm.
@@ -18,7 +19,7 @@ public class Dealer extends Player{
 			
 			Card c = deck.drawCard();
 			
-			if(c.name.charAt(0)=='A' && handValue <= (21-11)){
+			if(c.name.charAt(0)=='A' && handValue <= 10){
 				c.changeValue();
 			}
 			
@@ -29,5 +30,11 @@ public class Dealer extends Player{
 			
 			stay();
 		}
+	}
+	
+	//Initializes the player's hand.
+	public void initializeHand(){
+			
+			hand.add(deck.drawCard());
 	}
 }

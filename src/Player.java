@@ -6,16 +6,18 @@ public class Player {
 	private BufferedReader br;
 	String name;
 	ArrayList<Card> hand;
-	Card faceDown;
 	Deck deck;
+	boolean isDealer;
+	boolean didStay;
 	
 	public Player(String name, Deck deck){
 		
 		br = new BufferedReader(new InputStreamReader(System.in));
 		this.name = name;
 		hand = new ArrayList<Card>();
-		faceDown = null;
 		this.deck = deck;
+		isDealer = false;
+		didStay = false;
 	}
 	
 	//Handles the process of making the player's move.
@@ -54,11 +56,11 @@ public class Player {
 		}
 		
 		hand.add(c);
-		System.out.println("Added "+c.name+" to hand.");
+		System.out.println("Added "+c.name+" to "+name+"'s hand.");
 		System.out.println("New hand value = "+getHandValue());
 		
 		//Asks player if they want to make their Ace worth 11, not 1.
-		if(c.name.charAt(0)=='A'){
+		if(c.name.charAt(0)=='A' && !isDealer){
 			
 			String answer = "";
 			System.out.print("Change Ace from 1 to 11? (Y or N): ");
@@ -96,7 +98,8 @@ public class Player {
 	//Keep current cards.
 	public void stay(){
 		System.out.println(name+" decided to stay");
-		System.out.println("Current hand value = "+getHandValue());
+		System.out.println("Current hand value = "+getHandValue()+"\n");
+		didStay = true;
 	}
 	
 	//Determine value of the player's entire hand
@@ -109,6 +112,13 @@ public class Player {
 		}
 		
 		return total;
+	}
+	
+	//Initializes the player's hand.
+	public void initializeHand(){
+		
+		hand.add(deck.drawCard());
+		hand.add(deck.drawCard());
 	}
 	
 	//Prints the player's hand.
