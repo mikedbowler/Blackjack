@@ -121,6 +121,16 @@ public class Player {
 		hand.add(deck.drawCard());
 	}
 	
+	//Return cards back to the deck.
+	public void returnHand(){
+		
+		for(Card c: hand){
+			deck.addCard(c);
+		}
+		
+		hand.removeIf(card -> card!=null);
+	}
+	
 	//Prints the player's hand.
 	public void showHand(){
 		

@@ -9,43 +9,78 @@ public class Main {
 		//Adds a player and dealer, then initializes their hands.
 		Dealer d = new Dealer("Dealer",deck);
 		d.initializeHand();
-		Player p = new Player("Mike",deck);
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		//Allows player to enter their name.
+		System.out.println("Enter your name: ");
+		String pname = br.readLine();
+		pname = (pname.equals("")) ? "Player 1":pname;
+		
+		
+		Player p = new Player(pname,deck);
 		p.initializeHand();
 		
 		int turn = 0;
+		boolean playOn = true;
 		
-		System.out.println("*******************************");
-		System.out.println("*****WELCOME TO BLACKJACK******");
-		System.out.println("*******************************");
+		//Allows user to play again.
+		while(playOn){
 		
-		//Display initial hand values.
-		System.out.println("Dealer's Hand Value = "+d.getHandValue());
-		System.out.println(p.name+"'s Hand Value = "+p.getHandValue());
+			System.out.println("*******************************");
+			System.out.println("*****WELCOME TO BLACKJACK******");
+			System.out.println("*******************************");
 		
-		//Runs the game.
-		while(turn!=2){
+			//Display initial hand values.
+			System.out.println("Dealer's Hand Value = "+d.getHandValue());
+			System.out.println(p.name+"'s Hand Value = "+p.getHandValue());
+		
+			//Runs the game.
+			while(turn!=2){
 			
-			//Player's turn.
-			if(turn==0){
-				p.move();
+				//Player's turn.
+				if(turn==0){
+					p.move();
 				
-				if(p.didStay){
-					turn = 1;
+					if(p.didStay){
+						turn = 1;
+					}
 				}
-			}
-			else if(turn==1){
+				else if(turn==1){
 				
-				//Dealer's turn.
-				while(!d.didStay){
-					d.autoPlay();
+					//Dealer's turn.
+					while(!d.didStay){
+						d.autoPlay();
+					}
+				
+					turn = 2;
 				}
-				
-				turn = 2;
+			
+			}//End While Statement
+		
+			checkWinner(p,d);
+		
+			//Asks player if they want to continue playing or quit.
+			System.out.println("P = Play Again or any letter to Quit:");
+		
+			if(!br.readLine().equalsIgnoreCase("p")){
+				playOn = false;
 			}
 			
-		}//End While Statement
+			//Reset the game.
+			turn = 0;
+			d.returnHand();
+			d.didStay = false;
+			p.returnHand();
+			p.didStay = false;
+			deck.shuffle(3);
+			p.initializeHand();
+			d.initializeHand();
+			
+		}//End Outer While Statement
 		
-		checkWinner(p,d);
+		br.close();
+		System.exit(0);
 	}
 	
 	//Determines the result of the game.
@@ -76,7 +111,5 @@ public class Main {
 		else{
 			System.out.println("Error, winner not correctly evaluated!");
 		}	
-		
 	}
-
 }
