@@ -30,4 +30,12 @@ public class Card {
 		System.out.println("Card is not an Ace");
 		return;
 	}
+	
+	/*
+	 * Overrides the toString() method in Object class
+	 * to better represent the Card object in String format.
+	 */
+	public String toString(){
+		return name+"-"+suit+"-"+value;
+	}
 }

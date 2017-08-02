@@ -11,6 +11,11 @@ public class Player {
 		hand = new ArrayList<Card>();
 	}
 	
+	//Handles the process of making the player's move.
+	public void move(){
+		
+	}
+	
 	//Add a card to the palyer's hand.
 	public void hit(){
 		
