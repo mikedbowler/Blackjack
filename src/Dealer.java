@@ -1,14 +1,10 @@
-import java.util.ArrayList;
 
-public class Dealer {
+public class Dealer extends Player{
 	
-	String name;
-	ArrayList<Card> hand;
-	
-	public Dealer(String name){
+	public Dealer(String name, Deck deck){
 		
-		this.name = name;
-		hand = new ArrayList<Card>();
+		//Must call superclass constructor first.
+		super(name,deck);
 	}
 	
 	//The dealer will act according to a fixed algorithm.

@@ -1,5 +1,8 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Deck {
 	
@@ -22,6 +25,24 @@ public class Deck {
 		
 		//Returns top card
 		return cards.remove(0);
+	}
+	
+	//Shuffles the deck recursively to increase randomness of shuffling.
+	public void shuffle(int numOfShuffles){
+		
+		//Base case
+		if(numOfShuffles==0){return;}
+		
+		Random r = new Random();
+		
+		for(int i=0;i<52;i++){
+			
+			Card c = cards.remove(r.nextInt(52));
+			cards.add(c);
+		}
+		
+		//Recursive call
+		shuffle(numOfShuffles-1);
 	}
 	
 	//Adds a card to the deck
@@ -82,7 +103,10 @@ public class Deck {
 			}
 			
 		}//End While Statement
-			
+		
+		//Shuffle the deck.
+		shuffle(3);
+		
 		br.close();
 	}
 	

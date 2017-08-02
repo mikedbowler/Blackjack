@@ -25,9 +25,12 @@ public class Card {
 				value = 1;
 			}
 		}
+		else {
 		
 		//Not an Ace, print error.
 		System.out.println("Card is not an Ace");
+		}
+		
 		return;
 	}
 	
