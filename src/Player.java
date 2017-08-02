@@ -21,12 +21,18 @@ public class Player {
 	//Handles the process of making the player's move.
 	public void move() throws IOException{
 		
-		System.out.println(name+" your current hand value = "+getHandValue());
-		System.out.println("Hit or Stay? (H or S): ");
+		System.out.println("\n"+name+" your current hand value = "+getHandValue());
+		System.out.println("Hit, Stay, Show Hand, or Change Ace Value? (H/S/P/C): ");
 		String answer = br.readLine();
 		
-		if(answer.equalsIgnoreCase("H")){
+		if(answer.equalsIgnoreCase("h")){
 			hit(deck.drawCard());
+		}
+		else if(answer.equalsIgnoreCase("p")){
+			showHand();
+		}
+		else if(answer.equalsIgnoreCase("c")){
+			changeAce();
 		}
 		else{
 			stay();
@@ -67,6 +73,26 @@ public class Player {
 		
 	}
 	
+	/*
+	* Allows player to change the value of one 
+	*or more Ace's in their hand.
+	*/
+	public void changeAce() throws IOException{
+		
+		for(Card c: hand){
+			
+			if(c.name.charAt(0)=='A'){
+				System.out.println("This Ace is worth "+c.value);
+				System.out.print("To change this value type C now: ");
+				
+				if(br.readLine().equalsIgnoreCase("c")){
+					c.changeValue();
+				}
+			}
+		}
+		
+	}
+	
 	//Keep current cards.
 	public void stay(){
 		System.out.println(name+" decided to stay");
@@ -85,7 +111,7 @@ public class Player {
 		return total;
 	}
 	
-	//Prints the player's hand for testing purposes.
+	//Prints the player's hand.
 	public void showHand(){
 		
 		System.out.println(name+"'s hand contains: ");
